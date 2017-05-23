@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Media interaction design</title>
+		<style>
+			@font-face {
+					font-family: "TravelingTypewriter";
+					src: url("TravelingTypewriter.otf") format("opentype");
+      }
+
+			body {
+				background:url('paper.jpg');
+				background-size: cover;
+			}
+
+			.typewriter {
+				font-size:30px;
+				font-family: "TravelingTypewriter";
+				/*color: transparent;
+				text-shadow: 0px 0px 0px #232323;*/
+				word-break: break-all;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		
+    <div style="width: 80%; height:500px; margin-top: 50px; margin-left: 10%;"><p class="typewriter" id="typewriter"></p></div>
+		
+    <script src="jquery-3.2.1.min.js"></script>
+    <script>
+
+      $(document).keydown(function(e){
+
+        if (localStorage.getItem("key") == 0 || localStorage.getItem("key") == null){
+
+          $("#typewriter").append("<span class='my_character'>" +String.fromCharCode(e.which) + "</span>"  );
+        localStorage.setItem("key", 1);
+        }
+      
+      });
+
+      $(document).keyup(function(e){
+
+        console.log(e.which);
+        if (e.which == 8){
+          $(".my_character").last().remove();
+        }
+
+      });
+
+      $(document).keyup(function(e){
+      
+        localStorage.setItem("key", 0);
+        localStorage.setItem("my_counter", 8);
+
+      });
+
+      $(document).keypress(function(e){
+
+        var counter = localStorage.getItem("my_counter");
+
+        if (counter == null){
+        
+          localStorage.setItem("my_counter", 8);
+
+        }else{
+
+          console.log(counter);
+
+          $(".my_character").last().css("font-size", counter*1.2 + "px");
+
+          localStorage.setItem("my_counter", parseInt(counter) + 1);
+        
+        }
+
+        /*
+        var time_now = new Date().getTime();
+
+        var get_timer = localStorage.getItem("timer");
+
+        if (get_timer == null){
+          last_time = 0;
+        }
+
+        var last_time = parseInt(get_timer);
+
+        var time_gap = (time_now - last_time);
+
+        var opacity = 0;
+        if (time_gap > 1000){
+          opacity = 1;
+        }else{
+          opacity = time_gap/1000
+        }
+
+        $("#typewriter").append("<span class='my_character' style='opacity: " +  opacity + ";' >" +String.fromCharCode(e.which) + "</span>"  );
+        localStorage.setItem("timer", time_now);
+
+        if(e.keyCode == 32 && e.target == document.body) {
+            e.preventDefault();
+        }
+
+        if (e.which === 13){
+          $("#typewriter").append("<br class='my_character'>");
+          }
+          */
+
+      });
+
+    </script>
+
+	</body>
+
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Media interaction design</title>
+		<style>
+			@font-face {
+					font-family: "TravelingTypewriter";
+					src: url("TravelingTypewriter.otf") format("opentype");
+      }
+
+			body {
+				background:url('paper.jpg');
+				background-size: cover;
+			}
+
+			.typewriter {
+				font-size:30px;
+				font-family: "TravelingTypewriter";
+				/*color: transparent;
+				text-shadow: 0px 0px 0px #232323;*/
+				word-break: break-all;
+			}
+
+		</style>
+	</head>
+
+	<body>
+		
+    <div style="width: 80%; height:500px; margin-top: 50px; margin-left: 10%;"><p class="typewriter" id="typewriter"></p></div>
+		
+    <script src="jquery-3.2.1.min.js"></script>
+
+    <script>
+
+      $(document).keyup(function(e){
+      
+        if (e.which == 8){
+          $(".my_character").last().remove();
+        }
+
+      });
+
+      $(document).keypress(function(e){
+
+
+        $("#typewriter").append("<span class='my_character' style='opacity: 1;' >" +String.fromCharCode(e.which) + "</span>");
+
+
+        if(e.keyCode == 32 && e.target == document.body) {
+            e.preventDefault();
+        }
+
+        if (e.which === 13){
+          $("#typewriter").append("<br class='my_character'>");
+        }
+
+      });
+
+			var tid = setInterval(mycode, 200);
+
+			function mycode() {
+
+				$(".my_character").each(function(index){
+					var this_character = $(this).css("opacity");
+					$(this).css("opacity", this_character - 0.05);
+				});
+			}
+
+    </script>
+
+	</body>
+
+</html>
